@@ -1,5 +1,6 @@
 import { usePlayerStore } from '@/stote/PlayerStore'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef } from 'react'
+import { Slider } from './Slider'
 
 export const Pause = ({ className }) => (
   <svg
@@ -58,8 +59,59 @@ export const Volume = () => (
   </svg>
 )
 
+const CurrentSong = ({ image, title, artists }) => {
+  return (
+    <div className='flex items-center gap-2 relative overflow-hidden flex-row'>
+      <picture className='w-16 h-16 bg-zinc-800 rounded-md shadow-lg overflow-hidden'>
+        <img src={image} alt={title} />
+      </picture>
+      <div>
+        <h3 className='text-sm font-bold block'>{title}</h3>
+        <p className='text-xs text-white/80'>{artists?.join(', ')}</p>
+      </div>
+    </div>
+  )
+}
+
+const VolumeControl = () => {
+  const volume = usePlayerStore((state) => state.volume)
+  const setVolume = usePlayerStore((state) => state.setVolume)
+  const previousVolume = useRef(volume)
+
+  const handleClickVolume = () => {
+    if (volume < 0.1) {
+      setVolume(previousVolume.current)
+    } else {
+      previousVolume.current = volume
+      setVolume(0)
+    }
+  }
+
+  return (
+    <div className='flex justify-center gap-x-2 text-white'>
+      <button className='opacity-70 hover:opacity-100 transition' onClick={handleClickVolume}>
+        {volume < 0.1 ? <VolumeSilence /> : <Volume />}
+      </button>
+      <Slider
+        defaultValue={[50]}
+        value={[volume * 100]}
+        max={100}
+        min={0}
+        className='w-24'
+        onValueChange={(value) => {
+          const [newVolume] = value
+          const volumeValue = newVolume / 100
+          setVolume(volumeValue)
+        }}
+      />
+    </div>
+  )
+}
+
 export const Player = () => {
-  const {isPlaying, setIsPlaying, currentMusic} = usePlayerStore(state => state)
+  const { isPlaying, setIsPlaying, currentMusic, volume } = usePlayerStore(
+    (state) => state
+  )
   const audioRef = useRef()
 
   useEffect(() => {
@@ -67,11 +119,15 @@ export const Player = () => {
   }, [isPlaying])
 
   useEffect(() => {
+    audioRef.current.volume = volume
+  }, [volume])
+
+  useEffect(() => {
     const { song, playlist, songs } = currentMusic
     if (song) {
       const src = `/music/${playlist.id}/0${song.id}.mp3`
       audioRef.current.src = src
-      audioRef.current.volume = 0.5
+      audioRef.current.volume = volume
       audioRef.current.play()
     }
   }, [currentMusic])
@@ -81,8 +137,8 @@ export const Player = () => {
   }
 
   return (
-    <div className='flex justify-between flex-row w-full px-4 z-50'>
-      <div>Current song</div>
+    <div className='flex justify-between flex-row w-full px-2 z-50'>
+      <CurrentSong {...currentMusic.song} />
       <div className='grid place-content-center gap-4 flex-1'>
         <div className='flex justify-between'>
           <button className='bg-white rounded-full p-2' onClick={handlePlay}>
@@ -94,7 +150,9 @@ export const Player = () => {
           </button>
         </div>
       </div>
-      <div>Volumen</div>
+      <div className='grid place-content-center'>
+        <VolumeControl />
+      </div>
       <audio ref={audioRef} />
     </div>
   )
