@@ -170,7 +170,7 @@ export const Player = () => {
   }, [volume])
 
   useEffect(() => {
-    const { song, playlist, songs } = currentMusic
+    const { song, playlist } = currentMusic
     if (song) {
       const src = `/music/${playlist.id}/${playlist.id}.mp3`
       audioRef.current.src = src
