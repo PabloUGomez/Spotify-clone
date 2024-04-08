@@ -1,4 +1,4 @@
-import { usePlayerStore } from '@/stote/PlayerStore'
+import { usePlayerStore } from '../stote/PlayerStore.js'
 import { useEffect, useRef, useState } from 'react'
 import { Slider } from './Slider'
 

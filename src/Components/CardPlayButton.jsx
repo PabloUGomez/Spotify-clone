@@ -1,5 +1,5 @@
 import { Play, Pause } from './Player'
-import { usePlayerStore } from '@/stote/PlayerStore'
+import { usePlayerStore } from '../stote/PlayerStore.js'
 
 export const CardPlayButton = ({ id, size = 'small' }) => {
   const { isPlaying, currentMusic, setIsPlaying, setCurrentMusic } =
