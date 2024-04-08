@@ -60,8 +60,9 @@ export const Volume = () => (
 )
 
 const CurrentSong = ({ image, title, artists }) => {
+
   return (
-    <div className='flex items-center gap-2 relative overflow-hidden flex-row'>
+    <div className='flex items-center gap-2 relative overflow-hidden flex-row w-[190px]'>
       <picture className='w-16 h-16 bg-zinc-800 rounded-md shadow-lg overflow-hidden'>
         <img src={image} alt={title} />
       </picture>
@@ -171,7 +172,7 @@ export const Player = () => {
   useEffect(() => {
     const { song, playlist, songs } = currentMusic
     if (song) {
-      const src = `/music/${playlist.id}/0${song.id}.mp3`
+      const src = `/music/${playlist.id}/${playlist.id}.mp3`
       audioRef.current.src = src
       audioRef.current.volume = volume
       audioRef.current.play()

@@ -6,8 +6,7 @@ import SideMenuItem from './SideMenuItem.astro'
 import SideMenuCard from './SideMenuCard.astro'
 import { playlists } from '@/lib/data.ts'
 ---
-
-<nav class='flex flex-col flex-1 gap-2'>
+<nav class='flex flex-col flex-1 gap-2 overflow-hidden'>
   <div class='bg-zinc-900 rounded-lg p-2'>
     <ul>
       <SideMenuItem href='/'>
@@ -20,7 +19,7 @@ import { playlists } from '@/lib/data.ts'
       </SideMenuItem>
     </ul>
   </div>
-  <div class='bg-zinc-900 rounded-lg p-2 flex-1'>
+  <div class='bg-zinc-900 rounded-lg p-2 flex-1 overflow-y-auto'>
     <ul>
       <SideMenuItem href='/#'>
         <LibraryIcon />
