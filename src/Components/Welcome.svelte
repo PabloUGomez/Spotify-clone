@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   const currentTime = new Date()
   const hours = currentTime.getHours()
 
