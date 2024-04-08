@@ -155,7 +155,7 @@ const VolumeControl = () => {
   )
 }
 
-export const Player = () => {
+export default function Player () {
   const { isPlaying, setIsPlaying, currentMusic, volume } = usePlayerStore(
     (state) => state
   )
