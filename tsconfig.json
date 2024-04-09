@@ -13,7 +13,7 @@
         "src/icons/*"
       ],
       "@/lib": [
-        "src/lib/*"
+        "src/pages/lib/*"
       ]
     },
     "jsx": "react-jsx",
