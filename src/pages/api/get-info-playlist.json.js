@@ -1,4 +1,4 @@
-import { allPlaylists, songs as allSongs } from "../../lib/data.tsx";
+import { allPlaylists, songs as allSongs } from "../data.tsx";
 
 export async function GET({ request}) {
     const { url } = request
