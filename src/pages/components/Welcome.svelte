@@ -4,9 +4,9 @@
 
   let greeting = ''
 
-  if (hours < 12) {
+  if (hours < 12 && hours >= 5) {
     greeting = 'Buenos días'
-  } else if (hours < 19) {
+  } else if (hours >= 12 && hours < 19) {
     greeting = 'Buenas tardes'
   } else {
     greeting = 'Buenas noches'

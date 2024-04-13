@@ -60,7 +60,6 @@ export const Volume = () => (
 )
 
 const CurrentSong = ({ image, title, artists }) => {
-
   return (
     <div className='flex items-center gap-2 relative overflow-hidden flex-row w-[190px]'>
       <picture className='w-16 h-16 bg-zinc-800 rounded-md shadow-lg overflow-hidden'>
@@ -76,7 +75,7 @@ const CurrentSong = ({ image, title, artists }) => {
 
 const SongControl = ({ audio }) => {
   const [currentTime, setCurrentTime] = useState(0)
-  
+
   useEffect(() => {
     audio.current.addEventListener('timeupdate', handleTimeUpdate)
     return () => {
@@ -96,12 +95,14 @@ const SongControl = ({ audio }) => {
 
     return `${minutes}:${seconds < 10 ? `0${seconds}` : seconds}`
   }
- 
+
   const duration = audio?.current?.duration ?? 0
 
   return (
     <div className='flex text-xs gap-x-2 items-center '>
-      <span className='text-white/80 w-10 text-right'>{formatTime(currentTime)}</span>
+      <span className='text-white/80 w-10 text-right'>
+        {formatTime(currentTime)}
+      </span>
       <Slider
         defaultValue={[0]}
         value={[currentTime]}
@@ -112,7 +113,9 @@ const SongControl = ({ audio }) => {
           audio.current.currentTime = value
         }}
       />
-      <span className='text-white/80 w-10 text-left'>{duration ? formatTime(duration): null}</span>
+      <span className='text-white/80 w-10 text-left'>
+        {duration ? formatTime(duration) : null}
+      </span>
     </div>
   )
 }
@@ -155,7 +158,7 @@ const VolumeControl = () => {
   )
 }
 
-export default function Player () {
+export default function Player() {
   const { isPlaying, setIsPlaying, currentMusic, volume } = usePlayerStore(
     (state) => state
   )
